@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Регистрация</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/register.css' %}">
+</head>
+<body>
+    <div class="register-container">
+        <h1>Регистрация</h1>
+        <form action="/register" method="POST">
+            <label for="fullname">ФИО</label>
+            <input type="text" id="fullname" name="fullname" required>
+            
+            <label for="work_rate">Ставка работы</label>
+            <select id="work_rate" name="work_rate" required>
+                <option value="1">1</option>
+                <option value="0.75">0.75</option>
+                <option value="0.5">0.5</option>
+            </select>
+            
+            <label for="primary_modality">Основная модальность</label>
+            <select id="primary_modality" name="primary_modality" required>
+                <option value="КТ">КТ</option>
+                <option value="ММГ">ММГ</option>
+                <option value="ФЛГ">ФЛГ</option>
+                <option value="Денситометрия">Денситометрия</option>
+                <option value="РГ">РГ</option>
+            </select>
+
+            <label for="additional_modalities">Дополнительные модальности</label>
+            <div class="checkbox-list" id="additional_modalities">
+                <label>
+                    <input type="checkbox" value="КТ">
+                    <span class="checkbox-custom"></span> КТ
+                </label>
+                <label>
+                    <input type="checkbox" value="ММГ">
+                    <span class="checkbox-custom"></span> ММГ
+                </label>
+                <label>
+                    <input type="checkbox" value="ФЛГ">
+                    <span class="checkbox-custom"></span> ФЛГ
+                </label>
+                <label>
+                    <input type="checkbox" value="Денситометрия">
+                    <span class="checkbox-custom"></span> Денситометрия
+                </label>
+                <label>
+                    <input type="checkbox" value="РГ">
+                    <span class="checkbox-custom"></span> РГ
+                </label>
+            </div>
+            
+            <button type="submit">Зарегистрироваться</button>
+        </form>
+    </div>
+</body>
+</html>
+
