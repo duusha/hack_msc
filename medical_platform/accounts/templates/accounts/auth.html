@@ -3,20 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Authorization Page</title>
+    <title>Авторизация</title>
     {% load static %}
-    <link rel="stylesheet" href="{% static 'accounts/auth.css' %}">
+    <link rel="stylesheet" href="{% static 'accounts/css/auth.css' %}">
 </head>
 <body>
     <div class="login-container">
         <h1>Авторизация</h1>
-        <form action="/login" method="POST">
-            <label for="username">Имя пользователя</label>
-            <input type="text" id="username" name="username" required>
-            
-            <label for="password">Пароль</label>
-            <input type="password" id="password" name="password" required>
-            
+        <form method="POST" action="{% url 'auth' %}">
+            {% csrf_token %}
+            {{ form.as_p }}
             <button type="submit">Войти</button>
         </form>
     </div>
