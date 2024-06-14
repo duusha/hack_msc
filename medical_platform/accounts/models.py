@@ -36,3 +36,13 @@ class Modality(models.Model):
     def __str__(self):
         return self.name
 
+class Schedule(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='schedules')
+    date = models.DateField()
+    time_from = models.TimeField()
+    time_to = models.TimeField()
+    description = models.TextField()
+
+    def __str__(self):
+        return f"{self.date} {self.time_from}-{self.time_to}: {self.user.username}"
+

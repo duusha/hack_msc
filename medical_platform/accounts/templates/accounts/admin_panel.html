@@ -16,6 +16,9 @@
             <li>{{ user.username }} - {{ user.email }}</li>
             {% endfor %}
         </ul>
+        <a href="{% url 'all_schedules' %}">
+            <button>Посмотреть все расписания</button>
+        </a>
     </div>
 </body>
 </html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Все расписания</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'accounts/css/all_schedules.css' %}">
+</head>
+<body>
+    <div class="schedules-container">
+        <h1>Все расписания</h1>
+        <div class="navigation">
+            <a href="?week={{ current_week|add:"-1" }}">&laquo; Предыдущая неделя</a>
+            <a href="?week={{ current_week|add:"1" }}">Следующая неделя &raquo;</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th>Понедельник</th>
+                    <th>Вторник</th>
+                    <th>Среда</th>
+                    <th>Четверг</th>
+                    <th>Пятница</th>
+                    <th>Суббота</th>
+                    <th>Воскресенье</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    {% for day, schedules in week_schedules.items %}
+                    <td>
+                        <strong>{{ day }}</strong>
+                        <ul>
+                            {% for schedule in schedules %}
+                            <li>{{ schedule.time_from }}-{{ schedule.time_to }}: {{ schedule.description }} ({{ schedule.user.username }})</li>
+                            {% endfor %}
+                        </ul>
+                    </td>
+                    {% endfor %}
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
+
