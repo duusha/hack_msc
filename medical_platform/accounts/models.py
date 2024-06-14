@@ -5,22 +5,11 @@ class CustomUser(AbstractUser):
     work_rate = models.FloatField(default=1.0)
     primary_modality = models.CharField(max_length=100)
     additional_modalities = models.ManyToManyField('Modality', blank=True)
+    admin = models.BooleanField(default=False)
 
-    groups = models.ManyToManyField(
-        'auth.Group',
-        related_name='custom_user_set',
-        blank=True,
-        help_text='The groups this user belongs to.',
-        verbose_name='groups'
-    )
-
-    user_permissions = models.ManyToManyField(
-        'auth.Permission',
-        related_name='custom_user_set',
-        blank=True,
-        help_text='Specific permissions for this user.',
-        verbose_name='user permissions'
-    )
+    # Удаление переопределенных полей groups и user_permissions для устранения конфликтов
+    # groups = models.ManyToManyField('auth.Group', related_name='custom_user_set', blank=True)
+    # user_permissions = models.ManyToManyField('auth.Permission', related_name='custom_user_set', blank=True)
 
 class Modality(models.Model):
     MODALITY_CHOICES = [

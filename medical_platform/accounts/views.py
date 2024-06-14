@@ -4,6 +4,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm, ScheduleForm
 from .models import CustomUser, Schedule
+from django.http import HttpResponseForbidden
 from datetime import datetime, timedelta
 
 def register(request):
@@ -33,12 +34,17 @@ def auth_view(request):
         form = AuthenticationForm()
     return render(request, 'accounts/auth.html', {'form': form})
 
+@login_required
 def admin_panel(request):
+    if not request.user.admin:
+        return HttpResponseForbidden("You are not authorized to access this page.")
     users = CustomUser.objects.all()
     return render(request, 'accounts/admin_panel.html', {'users': users})
 
 @login_required
 def user_schedule(request, user_id):
+    if request.user.id != user_id:
+        return HttpResponseForbidden("You are not authorized to access this page.")
     user = get_object_or_404(CustomUser, id=user_id)
     today = datetime.today()
     current_week = request.GET.get('week', 0)
