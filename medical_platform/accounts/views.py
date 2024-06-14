@@ -2,9 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseForbidden
 from .forms import CustomUserCreationForm, ScheduleForm
 from .models import CustomUser, Schedule
-from django.http import HttpResponseForbidden
 from datetime import datetime, timedelta
 
 def register(request):
@@ -80,6 +80,9 @@ def user_schedule(request, user_id):
 
 @login_required
 def all_schedules(request):
+    if not request.user.admin:
+        return HttpResponseForbidden("You are not authorized to access this page.")
+    
     today = datetime.today()
     current_week = request.GET.get('week', 0)
     try:

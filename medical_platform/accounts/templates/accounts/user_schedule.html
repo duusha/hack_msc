@@ -46,6 +46,13 @@
                 </tr>
             </tbody>
         </table>
+        {% if request.user.admin %}
+        <div class="admin-button">
+            <a href="{% url 'admin_panel' %}">
+                <button>Перейти к панели администратора</button>
+            </a>
+        </div>
+        {% endif %}
     </div>
 </body>
 </html>

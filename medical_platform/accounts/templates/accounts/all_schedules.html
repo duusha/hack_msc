@@ -14,6 +14,13 @@
             <a href="?week={{ current_week|add:"-1" }}">&laquo; Предыдущая неделя</a>
             <a href="?week={{ current_week|add:"1" }}">Следующая неделя &raquo;</a>
         </div>
+        {% if request.user.admin %}
+        <div class="admin-button">
+            <a href="{% url 'admin_panel' %}">
+                <button>Перейти к панели администратора</button>
+            </a>
+        </div>
+        {% endif %}
         <table>
             <thead>
                 <tr>

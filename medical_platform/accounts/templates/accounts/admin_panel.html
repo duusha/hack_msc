@@ -10,6 +10,13 @@
 <body>
     <div class="admin-container">
         <h1>Панель администратора</h1>
+        {% if request.user.admin %}
+        <div class="admin-button">
+            <a href="{% url 'user_schedule' user_id=request.user.id %}">
+                <button>Вернуться к расписанию</button>
+            </a>
+        </div>
+        {% endif %}
         <h2>Зарегистрированные пользователи</h2>
         <ul>
             {% for user in users %}
