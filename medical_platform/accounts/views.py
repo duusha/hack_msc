@@ -43,7 +43,7 @@ def admin_panel(request):
 
 @login_required
 def user_schedule(request, user_id):
-    if request.user.id != user_id:
+    if request.user.id != user_id and not request.user.admin:
         return HttpResponseForbidden("You are not authorized to access this page.")
     user = get_object_or_404(CustomUser, id=user_id)
     today = datetime.today()
@@ -103,4 +103,12 @@ def all_schedules(request):
         'current_week': current_week
     }
     return render(request, 'accounts/all_schedules.html', context)
+
+@login_required
+def delete_schedule(request, schedule_id):
+    schedule = get_object_or_404(Schedule, id=schedule_id)
+    if request.user != schedule.user and not request.user.admin:
+        return HttpResponseForbidden("You are not authorized to delete this schedule.")
+    schedule.delete()
+    return redirect(request.META.get('HTTP_REFERER', 'user_schedule'))
 
